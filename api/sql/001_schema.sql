@@ -26,8 +26,15 @@ IF OBJECT_ID('dbo.orgao') IS NULL
 CREATE TABLE dbo.orgao (
     cnpj           VARCHAR(14)   NOT NULL PRIMARY KEY,
     razao_social   NVARCHAR(300) NOT NULL,
-    uf             CHAR(2)       NOT NULL
+    uf             CHAR(2)       NULL
 );
+GO
+
+IF EXISTS (
+    SELECT 1 FROM INFORMATION_SCHEMA.COLUMNS
+    WHERE TABLE_NAME = 'orgao' AND COLUMN_NAME = 'uf' AND IS_NULLABLE = 'NO'
+)
+    ALTER TABLE dbo.orgao ALTER COLUMN uf CHAR(2) NULL;
 GO
 
 IF OBJECT_ID('dbo.contratacao') IS NULL
