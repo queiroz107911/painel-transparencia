@@ -1,23 +1,22 @@
 {
   "name": "api",
   "version": "1.0.0",
-  "main": "index.js",
-  "directories": {
-    "test": "test"
-  },
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "description": "",
   "type": "module",
+  "scripts": {
+    "dev": "tsx src/server.ts",
+    "build": "tsc",
+    "test": "vitest run",
+    "db:init": "node scripts/db-init.mjs",
+    "ingest": "tsx src/ingest.ts",
+    "agendador": "tsx src/agendador.ts"
+  },
   "dependencies": {
     "dotenv": "^18.0.5",
-    "mssql": "^12.7.2"
+    "mssql": "^12.7.2",
+    "node-cron": "^4.6.0"
   },
   "devDependencies": {
+    "@types/mssql": "^12.3.0",
     "@types/node": "^26.6.4",
     "tsx": "^4.23.15",
     "typescript": "^7.0.2",
