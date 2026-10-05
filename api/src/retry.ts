@@ -2,6 +2,7 @@ export async function fetchComRetry(
   url: string,
   opcoes: RequestInit = {},
   maxTentativas = 5,
+  baseDelayMs = 1000,
 ): Promise<Response> {
   for (let tentativa = 1; tentativa <= maxTentativas; tentativa++) {
     const resposta = await fetch(url, opcoes);
@@ -15,7 +16,7 @@ export async function fetchComRetry(
       throw new Error(`Falha ao chamar a API (HTTP ${resposta.status}): ${url}`);
     }
 
-    const esperaMs = 1000 * 2 ** (tentativa - 1); // 1s, 2s, 4s, 8s, 16s
+    const esperaMs = baseDelayMs * 2 ** (tentativa - 1); // 1s, 2s, 4s, 8s, 16s
     console.log(`HTTP ${resposta.status}. Tentativa ${tentativa} falhou, esperando ${esperaMs}ms`);
     await new Promise((resolve) => setTimeout(resolve, esperaMs));
   }
