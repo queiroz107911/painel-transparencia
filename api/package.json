@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "dotenv": "^18.0.5",
+    "fastify": "^5.12.5",
     "mssql": "^12.7.2",
     "node-cron": "^4.6.0"
   },
