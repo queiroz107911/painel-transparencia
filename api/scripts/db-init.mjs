@@ -7,7 +7,7 @@ import { fileURLToPath } from 'node:url';
 const __dirname = fileURLToPath(new URL('.', import.meta.url));
 
 // Lê o .env da raiz do projeto (api/../.env)
-const envPath = resolve(__dirname, '../.env');
+const envPath = resolve(__dirname, '../../.env');
 const envContent = readFileSync(envPath, 'utf8');
 const env = Object.fromEntries(
   envContent

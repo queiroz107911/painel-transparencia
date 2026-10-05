@@ -7,6 +7,7 @@ const { values } = parseArgs({
     de: { type: 'string' },
     ate: { type: 'string' },
     modalidade: { type: 'string' },
+    'max-paginas': { type: 'string' },
   },
 });
 
@@ -50,12 +51,15 @@ if (!modalidadeStr || !/^\d+$/.test(modalidadeStr)) {
 const modalidade = Number(modalidadeStr);
 const paraAAAAAMMDD = (d: Date) => d.toISOString().slice(0, 10).replace(/-/g, '');
 
-console.log(`Ingestão: de=${values.de} ate=${values.ate} modalidade=${modalidade}`);
+const maxPaginas = values['max-paginas'] ? Number(values['max-paginas']) : undefined;
+
+console.log(`Ingestão: de=${values.de} ate=${values.ate} modalidade=${modalidade}${maxPaginas ? ` maxPaginas=${maxPaginas}` : ''}`);
 
 executarIngestao({
   dataInicial: paraAAAAAMMDD(dataDe),
   dataFinal: paraAAAAAMMDD(dataAte),
   modalidade,
+  ...(maxPaginas !== undefined && { maxPaginas }),
 })
   .catch((err: unknown) => {
     console.error('Falha na ingestão:', err);
